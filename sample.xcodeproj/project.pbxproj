@@ -403,10 +403,12 @@
 		5A0A666C17ACA4590068DED6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: hirokazu sato (C4ZXRD5ANL)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "sample/sample-Prefix.pch";
 				INFOPLIST_FILE = "sample/sample-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "3A2F3FBF-2D6F-485C-8CE9-BEE0D286156F";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
