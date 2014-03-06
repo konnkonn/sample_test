@@ -47,3 +47,58 @@ CSRF tokenをワンタイムにしたり有効期限を設ける場合には、�
 - カスタムヘッダの存在で確認する方法について https://gist.github.com/mala/8857629
 
 残念ながらまだ使うことが出来ません。Flashのバグが無ければ使えますが、実際に攻撃方法が開示されてから3年経っても直ってないということになります。3年です。責任の所在がどこにあるのかはともかく、実際にユーザーが被害にあう可能性があるならば、穴がある対策方法を使うべきではないと考えます。「それはブラウザやプラグインのバグだからWebサイト側では対策する必要がない」などと言って、ユーザーを危険にさらす訳にはいかないのです。
+
+
+<!DOCTYPE HTML>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+         <script src="http://code.createjs.com/easeljs-0.5.0.min.js"></script>
+         <script src="http://code.createjs.com/tweenjs-0.3.0.min.js"></script>
+         <script src="http://code.createjs.com/preloadjs-0.2.0.min.js"></script>
+        <title>demo</title>
+    </head>
+    <body>
+        <canvas id="demoCanvas" height="500" width="500">
+            Canvasが使えるブラウザで見てね
+        </canvas>
+    </body>
+    <script>
+        var initialize = function(){
+            var loader = new createjs.PreloadJS(false);
+            var file = "http://blog.asial.co.jp/image/user_image_m/22.png";
+
+            var demoCanvas = document.getElementById("demoCanvas");
+            stage = new createjs.Stage(demoCanvas);
+            loader.onFileLoad = draw;
+            loader.loadFile(file);
+        }
+        
+        var tick = function(){
+            stage.update();
+        }
+        
+        var draw = function(eventObject){
+            var myImage = eventObject.result;
+            myBitmap = new createjs.Bitmap(myImage);
+
+            var halfWidth = myImage.width / 4;
+            var halfHeight = myImage.height / 4;
+
+            myBitmap.regX = halfWidth;
+            myBitmap.regY = halfHeight;
+
+            myBitmap.x = 0;
+            myBitmap.y = 0;
+
+            stage.addChild(myBitmap);
+            stage.update();
+            
+            var point = new createjs.Point(100, 0);
+            createjs.Tween.get(myBitmap).to({"x":point.x,"y":point.y}, 1000,createjs.Ease.bounceOut);
+            createjs.Ticker.addListener(window);
+            
+        }
+        initialize();
+    </script>
+</html>
